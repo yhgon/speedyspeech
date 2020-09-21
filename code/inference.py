@@ -37,7 +37,7 @@ parser.add_argument("--speedyspeech_checkpoint", default='checkpoints/speedyspee
 parser.add_argument("--melgan_checkpoint", default='checkpoints/melgan.pth', type=str, help="Checkpoint file for MelGan.")
 parser.add_argument("--device", type=str, default='cuda' if torch.cuda.is_available() else 'cpu',  help="What device to use.")
 parser.add_argument("--audio_folder", type=str, default="synthesized_audio", help="Where to save audios")
-parser.add_argument("--text_input", type=str, default="The governor himself admitted that a prisoner of weak intellect who had been severely beaten and much injured by a wardsman did not dare complain5", help="text from LJ006-0134.wav")
+parser.add_argument("--text_input", type=str, default="The governor himself admitted that a prisoner of weak intellect who had been severely beaten and much injured by a wardsman did not dare complain.\n", help="text from LJ006-0134.wav")
 args = parser.parse_args()
 
 print('Loading model checkpoints')
