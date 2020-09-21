@@ -20,7 +20,7 @@ import os
 
 import torch
 import numpy as np
-from barbar import Bar  # progress bar
+#from barbar import Bar  # progress bar
 
 def save_alignments_as_fertilities(model, dataloader, folder, durations_filename):
     """Save extracted alignments as durations
@@ -30,7 +30,7 @@ def save_alignments_as_fertilities(model, dataloader, folder, durations_filename
     """
 
     with open(os.path.join(folder, durations_filename), 'w') as file:
-        for i, batch in enumerate(Bar(dataloader)):
+        for i, batch in enumerate(dataloader):
             spectrs, slen, phonemes, plen, text = batch
             # supervised generation to get more reliable alignments
             out, alignment = model.generate(phonemes, plen, window=1, spectrograms=spectrs)
