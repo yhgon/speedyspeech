@@ -60,9 +60,14 @@ txt_processor = TextProcessor(HPText.graphemes, phonemize=HPText.use_phonemes)
 text = args.text_input
 
 phonemes, plen = txt_processor(text)
+print("DEBUG", text, plen, phonemes) 
 # append more zeros - avoid cutoff at the end of the largest sequence
 phonemes = torch.cat((phonemes, torch.zeros(len(phonemes), 5).long() ), dim=-1)
 phonemes = phonemes.to(args.device)
+print(phonemes) 
+
+
+print(text, plen, phonemes) 
 
 print('Synthesizing')
 # generate spectrograms
