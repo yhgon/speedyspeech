@@ -58,16 +58,17 @@ print('Processing text')
 txt_processor = TextProcessor(HPText.graphemes, phonemize=HPText.use_phonemes)
 #text = [t.strip() for t in sys.stdin.readlines()]
 text = args.text_input
+print("DEBUG", text ) 
 
 phonemes, plen = txt_processor(text)
-print("DEBUG", text, plen, phonemes) 
+print("DEBUG",  plen, phonemes) 
 # append more zeros - avoid cutoff at the end of the largest sequence
 phonemes = torch.cat((phonemes, torch.zeros(len(phonemes), 5).long() ), dim=-1)
+print("DEBUG", phonemes) 
 phonemes = phonemes.to(args.device)
-print(phonemes) 
 
 
-print(text, plen, phonemes) 
+
 
 print('Synthesizing')
 # generate spectrograms
