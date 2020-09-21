@@ -29,7 +29,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data.sampler import SequentialSampler
 from torch.utils.data import DataLoader
 
-import git
+#import git
 from barbar import Bar  # progress bar
 
 from layers import Conv1d, ResidualBlock, FreqNorm
