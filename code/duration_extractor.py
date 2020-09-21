@@ -27,8 +27,8 @@ from torch.nn import L1Loss, ZeroPad2d
 from torch.utils.tensorboard import SummaryWriter
 import torch
 
-import git
-from barbar import Bar  # progress bar
+#import git
+#from barbar import Bar  # progress bar
 
 from layers import WaveResidualBlock, Conv1d
 from functional import positional_encoding, median_mask, mask, idx_mask, scaled_dot_attention, display_spectr_alignment
@@ -401,7 +401,7 @@ class DurationExtractor(nn.Module):
         self.train()
 
         t_l1, t_att = 0, 0
-        for i, batch in enumerate(Bar(dataloader)):
+        for i, batch in enumerate(dataloader):
             self.optimizer.zero_grad()
             spectrs, slen, phonemes, plen, text = batch
 
