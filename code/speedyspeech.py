@@ -110,7 +110,7 @@ class Encoder(nn.Module):
         super(Encoder, self).__init__()
 
         self.prenet = nn.Sequential(
-            nn.Embedding(hp.alphabet_size, hp.channels), # eliminate padding_idx=0
+            nn.Embedding(hp.alphabet_size, hp.channels,  padding_idx=0), 
             Conv1d(hp.channels, hp.channels),
             hp.activation(),
         )
