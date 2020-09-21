@@ -29,7 +29,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data.sampler import SequentialSampler
 from torch.utils.data import DataLoader
 
-#import git
+#import git  # for 245 repo
 #from barbar import Bar  # progress bar  # 352 line for for i, batch in enumerate(Bar(dataloader))
 
 from layers import Conv1d, ResidualBlock, FreqNorm
@@ -245,8 +245,8 @@ class SpeedySpeech(nn.Module):
         self.step = 0
         self.durations_file = durations_file
 
-        repo = git.Repo(search_parent_directories=True)
-        self.git_commit = repo.head.object.hexsha
+        #repo = git.Repo(search_parent_directories=True)
+        #self.git_commit = repo.head.object.hexsha
 
     def forward(self, x):
         """
@@ -303,8 +303,7 @@ class SpeedySpeech(nn.Module):
                 'epoch': self.epoch,
                 'step': self.step,
                 'state_dict': self.state_dict(),
-                'optimizer': self.optimizer.state_dict(),
-                'git_commit': self.git_commit
+                'optimizer': self.optimizer.state_dict() 
             },
             self.checkpoint)
 
@@ -317,9 +316,9 @@ class SpeedySpeech(nn.Module):
         self.step = checkpoint['step']
         self.load_state_dict(checkpoint['state_dict'])
         self.optimizer.load_state_dict(checkpoint['optimizer'])
-        commit = checkpoint['git_commit']
-        if commit != self.git_commit:
-            print(f'Warning: the loaded checkpoint was trained on commit {commit}, but you are on {self.git_commit}')
+        #commit = checkpoint['git_commit']
+        #if commit != self.git_commit:
+        #    print(f'Warning: the loaded checkpoint was trained on commit {commit}, but you are on {self.git_commit}')
         self.checkpoint = None  # prevent overriding old checkpoint
         return self
 
