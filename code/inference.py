@@ -21,6 +21,7 @@ optional arguments:
   --audio_folder AUDIO_FOLDER
                         Where to save audios
 """
+import time
 import argparse, sys, os, time
 import torch
 from librosa.output import write_wav
@@ -55,6 +56,7 @@ melgan.load_state_dict(checkpoint["model_g"])
 melgan.eval(inference=False)
 
 print('Processing text')
+
 txt_processor = TextProcessor(HPText.graphemes, phonemize=HPText.use_phonemes)
 text = [t.strip() for t in sys.stdin.readlines()]
 #text = args.text_input
@@ -72,10 +74,13 @@ phonemes = phonemes.to(args.device)
 
 print('Synthesizing')
 # generate spectrograms
+tic_mel = time.time()
 with torch.no_grad():
     spec, durations = m((phonemes, plen))
+toc_mel = time.time() 
+dur_mel = toc_mel - tic_mel
 
-
+tic_prep = time.time()
 # invert to log(mel-spectrogram)
 spec = m.collate.norm.inverse(spec)
 
@@ -86,9 +91,17 @@ spec = spec.masked_fill(~msk, -11.5129)
 # Append more pad frames to improve end of the longest sequence
 spec = torch.cat((spec.transpose(2,1), -11.5129*torch.ones(len(spec), HPStft.n_mel, 5).to(args.device)), dim=-1)
 
+toc_prep = time.time()
+dur_prep = toc_prep - tic_prep
+
+tic_melgan = time.time()
 # generate audio
 with torch.no_grad():
     audio = melgan(spec).squeeze(1)
+toc_melgan = time.time()
+dur_melgan = toc_melgan - tic_melgan
+
+print(dur_mel, dur_prep, dur_melgan)
 
 print('Saving audio')
 # TODO: cut audios to proper length
