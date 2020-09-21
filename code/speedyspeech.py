@@ -30,7 +30,7 @@ from torch.utils.data.sampler import SequentialSampler
 from torch.utils.data import DataLoader
 
 #import git
-from barbar import Bar  # progress bar
+#from barbar import Bar  # progress bar  # 352 line for for i, batch in enumerate(Bar(dataloader))
 
 from layers import Conv1d, ResidualBlock, FreqNorm
 from losses import l1_masked, masked_huber, masked_ssim, l1_dtw
@@ -349,7 +349,7 @@ class SpeedySpeech(nn.Module):
         self.train()
 
         t_l1, t_ssim, t_huber = 0,0,0
-        for i, batch in enumerate(Bar(dataloader)):
+        for i, batch in enumerate(dataloader):
             self.optimizer.zero_grad()
             spectrs, slen, phonemes, plen, text, durations = batch
             out, pred_durations = self.forward((phonemes, plen, durations))
