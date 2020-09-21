@@ -105,11 +105,14 @@ print(dur_mel, dur_prep, dur_melgan)
 
 print('Saving audio')
 # TODO: cut audios to proper length
-sec_a =0
+samples_audio =0
 for i,a in enumerate(audio.detach().cpu().numpy()):
-    sec_a += len(a)
+    samples_a += len(a)
     write_wav(os.path.join(args.audio_folder,f'{i}.wav'), a, HPStft.sample_rate, norm=False)
 
-print( "dur : ", len(sec_a) /  HPStft.sample_rate, "sec"  )
+len_audio = samples_audio /  HPStft.sample_rate
+dur_com = dur_mel+ dur_prep+ dur_melgan
+print( "dur : ", len_audio, "sec"  )
 print( "com : ", dur_mel+ dur_prep+ dur_melgan)
+print( "RTF : ", dur_com/len_audio,"X")
 
