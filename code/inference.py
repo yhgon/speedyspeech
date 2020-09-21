@@ -45,7 +45,7 @@ m = SpeedySpeech(
     device=args.device
 ).load(args.speedyspeech_checkpoint, map_location=args.device)
 
-print(m) # FOR Debugging ################### 
+#print(m) # FOR Debugging ################### 
 m.eval()
 
 checkpoint = torch.load(args.melgan_checkpoint, map_location=args.device)
