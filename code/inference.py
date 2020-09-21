@@ -107,7 +107,7 @@ print('Saving audio')
 # TODO: cut audios to proper length
 samples_audio =0
 for i,a in enumerate(audio.detach().cpu().numpy()):
-    samples_a += len(a)
+    samples_audio += len(a)
     write_wav(os.path.join(args.audio_folder,f'{i}.wav'), a, HPStft.sample_rate, norm=False)
 
 len_audio = samples_audio /  HPStft.sample_rate
