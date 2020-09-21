@@ -112,7 +112,7 @@ for i,a in enumerate(audio.detach().cpu().numpy()):
 
 len_audio = samples_audio /  HPStft.sample_rate
 dur_com = dur_mel+ dur_prep+ dur_melgan
-print( "duration of audio : ", len_audio, "sec"  )
-print( "computation : ", dur_mel+ dur_prep+ dur_melgan)
-print( "RTF : ", len_audio / dur_com,"X")
+print( "duration of audio : {:4.2f} sec".format( len_audio) )
+print( "computation       : {:4.2f} sec ".format(dur_mel+ dur_prep+ dur_melgan) )
+print( "RTF               : {:4.2f} X".format(len_audio / dur_com) )
 
