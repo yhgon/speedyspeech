@@ -63,10 +63,10 @@ text = [t.strip() for t in sys.stdin.readlines()]
 print("DEBUG", text ) 
 
 phonemes, plen = txt_processor(text)
-print("DEBUG",  plen, phonemes) 
+#print("DEBUG",  plen, phonemes) 
 # append more zeros - avoid cutoff at the end of the largest sequence
 phonemes = torch.cat((phonemes, torch.zeros(len(phonemes), 5).long() ), dim=-1)
-print("DEBUG", phonemes) 
+#print("DEBUG", phonemes) 
 phonemes = phonemes.to(args.device)
 
 
@@ -112,7 +112,7 @@ for i,a in enumerate(audio.detach().cpu().numpy()):
 
 len_audio = samples_audio /  HPStft.sample_rate
 dur_com = dur_mel+ dur_prep+ dur_melgan
-print( "dur : ", len_audio, "sec"  )
-print( "com : ", dur_mel+ dur_prep+ dur_melgan)
-print( "RTF : ", dur_com/len_audio,"X")
+print( "duration of audio : ", len_audio, "sec"  )
+print( "computation : ", dur_mel+ dur_prep+ dur_melgan)
+print( "RTF : ", len_audio / dur_com,"X")
 
